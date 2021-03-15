@@ -1,4 +1,6 @@
-var citySearch = $("#citySearch").value;
+var citySearch = $("#searchValue").value;
+
+// get API info
 
 var getWeather = function(searchValue) {
 
@@ -6,6 +8,8 @@ var getWeather = function(searchValue) {
     
         fetch (apiUrl).then(function(response) {
             response.json().then(function(data) {
+
+                //loop through API to get 5 days 
 
                for (var i=0; i < (data.list.length); i += 8) {
 
@@ -26,7 +30,9 @@ var getWeather = function(searchValue) {
         }
 
     getWeather("Phoenix");
-       
+
+
+    //weather date and time for day of    
 
 function todaysWeather(searchValue) {
 
@@ -54,6 +60,8 @@ function todaysWeather(searchValue) {
 
 }
 todaysWeather("Phoenix");
+
+//get UV Index
 
 function getUVIndex(lat, long) {
 
