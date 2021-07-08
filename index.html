@@ -20,6 +20,7 @@
         <!-- City Search-->
 
         <div class="container-fluid">
+          <div class = "row">
             <div class="col-4">
             <h4>Search for a City:</h4>
             
@@ -28,6 +29,10 @@
             <input type="text" id="searchValue" class="form-control" placeholder="Enter City Name" aria-label="" aria-describedby="basic-addon1">
             <div class="input-group-append" id="searchButton">
               <button class="btn btn-primary searchButton" type="button">Search</button>
+            </div>
+            <div>
+              <ul class = "searchHistory">
+              </ul>
             </div>
             </div>
           </div>
@@ -42,15 +47,17 @@
         </div>  
 
         <!-- Date and weather for next 5 days -->
-
-          <div class="fiveDays row-fluid card">
+        <div class = "col-12">
+          <div class="fiveDays row">
               <h2>5-Day Forecast:</h2>
-
           </div>
+
+        </div>
+      </div>
 
        
          <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="./js/script.js"></script>
+        <script src="./assets/js/script.js"></script>
     </body>
 </html>

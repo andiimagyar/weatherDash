@@ -1,4 +1,11 @@
-var citySearch = $("#searchValue").value;
+$('document').ready(
+    function(){
+
+var searchHistory = $(".searchHistory");
+
+var prevCity = JSON.parse(localStorage.getItem("PrevCity")) || [];
+
+renderSearchHist();
 
 // get API info
 
@@ -8,6 +15,8 @@ var getWeather = function(searchValue) {
     
         fetch (apiUrl).then(function(response) {
             response.json().then(function(data) {
+                
+                $('.fiveDays').empty()
 
                 //loop through API to get 5 days 
 
@@ -17,20 +26,21 @@ var getWeather = function(searchValue) {
 
                     $(".fiveDays").append(
                     `
+                    <div class = "col-2">
                     <h4>${data.list[i].dt_txt}</h4>
                     <p><img src="http://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png"> </img </p> 
                     <p>Temp: ${data.list[i].main.temp} °F </p>
                     <p>Humidity: ${data.list[i].main.humidity} %</p>  
+                    </div>
                     
                     `)
                 }
             });
 
             })
+
+            todaysWeather(searchValue);
         }
-
-    getWeather("Phoenix");
-
 
     //weather date and time for day of    
 
@@ -40,6 +50,8 @@ function todaysWeather(searchValue) {
     
     fetch (apiUrl).then(function(response) {
         response.json().then(function(data) {
+
+            $('.weatherContainer').empty()
 
             $(".weatherContainer").append(
                 `
@@ -59,7 +71,6 @@ function todaysWeather(searchValue) {
 })
 
 }
-todaysWeather("Phoenix");
 
 //get UV Index
 
@@ -80,10 +91,40 @@ function getUVIndex(lat, long) {
 
     })
 
-    $(".saveButton").on("click", function() {
-        var key = $(this).parent().attr("id");
-        var value = $(this).siblings(".searchButton").val();
-        localStorage.setItem(key, value); 
-    });
-
 }
+
+$(".searchButton").on("click", function() {
+    var value = $("#searchValue").val();
+    prevCity.push(value);
+    getWeather(value);
+    renderSearchHist();
+
+    localStorage.setItem("PrevCity", JSON.stringify(prevCity)); 
+});
+
+function renderSearchHist() {
+
+    searchHistory.empty()
+
+    prevCity.forEach(function(city){
+
+        searchHistory.append(`
+
+        <li>
+        <button>${city}</button>
+        </li>
+
+        `)
+    })
+}
+
+searchHistory.on("click", "button", function(e) {
+
+    var buttonText = $(this).text()
+    // "this" targets what was ACTUALLY clicked on 
+
+    getWeather(buttonText)
+
+})
+
+})
