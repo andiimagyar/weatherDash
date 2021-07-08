@@ -4,4 +4,4 @@
 
  https://andiimagyar.github.io/weatherDash/.
 
- ![Screenshot] (/assets/images/weatherdash.png)
+ ![Screenshot](/assets/images/weatherdash.png)
